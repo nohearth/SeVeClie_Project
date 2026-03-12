@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="VeClientModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="EstCivil">
+          <Key>
+            <PropertyRef Name="id_estado_civil" />
+          </Key>
+          <Property Name="id_estado_civil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="estado_civil" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SeVeClie">
+          <Key>
+            <PropertyRef Name="id_clie" />
+          </Key>
+          <Property Name="id_clie" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="cedula" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="apellido" Type="varchar" MaxLength="50" />
+          <Property Name="genero" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="fecha_nac" Type="datetime" Nullable="false" />
+          <Property Name="id_estado_civil" Type="int" Nullable="false" />
+          <Property Name="created_at" Type="datetime" Nullable="false" />
+          <Property Name="updated_at" Type="datetime" Nullable="false" />
+          <Property Name="deleted_at" Type="datetime" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="created_at" Type="datetime" Nullable="false" />
+          <Property Name="updated_at" Type="datetime" Nullable="false" />
+          <Property Name="deleted_at" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_VeClient_EstadoCivil">
+          <End Role="EstCivil" Type="Self.EstCivil" Multiplicity="1" />
+          <End Role="SeVeClie" Type="Self.SeVeClie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstCivil">
+              <PropertyRef Name="id_estado_civil" />
+            </Principal>
+            <Dependent Role="SeVeClie">
+              <PropertyRef Name="id_estado_civil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sp_GetAllSeVeClie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PageSize" Type="int" Mode="In" />
+          <Parameter Name="PageNum" Type="int" Mode="In" />
+          <Parameter Name="OrderField" Type="varchar" Mode="In" />
+          <Parameter Name="OrderDir" Type="varchar" Mode="In" />
+          <Parameter Name="FilterValue" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_GetSeVeClieById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdClie" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_UpdateSeVeClieById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdClie" Type="nvarchar" Mode="In" />
+          <Parameter Name="Cedula" Type="varchar" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="Apellido" Type="varchar" Mode="In" />
+          <Parameter Name="Genero" Type="varchar" Mode="In" />
+          <Parameter Name="Fecha_nac" Type="datetime" Mode="In" />
+          <Parameter Name="Id_estado_civil" Type="int" Mode="In" />
+          <Parameter Name="Updated_at" Type="datetime" Mode="In" />
+        </Function>
+        <EntityContainer Name="VeClientModelStoreContainer">
+          <EntitySet Name="EstCivil" EntityType="Self.EstCivil" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SeVeClie" EntityType="Self.SeVeClie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_VeClient_EstadoCivil" Association="Self.FK_VeClient_EstadoCivil">
+            <End Role="EstCivil" EntitySet="EstCivil" />
+            <End Role="SeVeClie" EntitySet="SeVeClie" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VeClientModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="EstCivil">
+          <Key>
+            <PropertyRef Name="id_estado_civil" />
+          </Key>
+          <Property Name="id_estado_civil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="estado_civil" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="SeVeClies" Relationship="Self.FK_VeClient_EstadoCivil" FromRole="EstCivil" ToRole="SeVeClie" />
+        </EntityType>
+        <EntityType Name="SeVeClie">
+          <Key>
+            <PropertyRef Name="id_clie" />
+          </Key>
+          <Property Name="id_clie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cedula" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="genero" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_nac" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="id_estado_civil" Type="Int32" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updated_at" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="deleted_at" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="EstCivil" Relationship="Self.FK_VeClient_EstadoCivil" FromRole="SeVeClie" ToRole="EstCivil" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updated_at" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="deleted_at" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="FK_VeClient_EstadoCivil">
+          <End Role="EstCivil" Type="Self.EstCivil" Multiplicity="1" />
+          <End Role="SeVeClie" Type="Self.SeVeClie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstCivil">
+              <PropertyRef Name="id_estado_civil" />
+            </Principal>
+            <Dependent Role="SeVeClie">
+              <PropertyRef Name="id_estado_civil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VeClientEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="EstCivils" EntityType="Self.EstCivil" />
+          <EntitySet Name="SeVeClies" EntityType="Self.SeVeClie" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_VeClient_EstadoCivil" Association="Self.FK_VeClient_EstadoCivil">
+            <End Role="EstCivil" EntitySet="EstCivils" />
+            <End Role="SeVeClie" EntitySet="SeVeClies" />
+          </AssociationSet>
+          <FunctionImport Name="sp_UpdateSeVeClieById">
+            <Parameter Name="IdClie" Mode="In" Type="String" />
+            <Parameter Name="Cedula" Mode="In" Type="String" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Apellido" Mode="In" Type="String" />
+            <Parameter Name="Genero" Mode="In" Type="String" />
+            <Parameter Name="Fecha_nac" Mode="In" Type="DateTime" />
+            <Parameter Name="Id_estado_civil" Mode="In" Type="Int32" />
+            <Parameter Name="Updated_at" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetAllSeVeClie" ReturnType="Collection(VeClientModel.sp_GetAllSeVeClie_Result)">
+            <Parameter Name="PageSize" Mode="In" Type="Int32" />
+            <Parameter Name="PageNum" Mode="In" Type="Int32" />
+            <Parameter Name="OrderField" Mode="In" Type="String" />
+            <Parameter Name="OrderDir" Mode="In" Type="String" />
+            <Parameter Name="FilterValue" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetSeVeClieById" ReturnType="Collection(VeClientModel.sp_GetSeVeClieById_Result)">
+            <Parameter Name="IdClie" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="sp_GetAllSeVeClie_Result">
+          <Property Type="String" Name="id_clie" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="cedula" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="apellido" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="genero" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="fecha_nac" Nullable="false" Precision="23" />
+          <Property Type="String" Name="estado_civil" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="total_rec" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_GetSeVeClieById_Result">
+          <Property Type="String" Name="id_clie" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="cedula" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="apellido" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="genero" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="fecha_nac" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="id_estado_civil" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="VeClientModelStoreContainer" CdmEntityContainer="VeClientEntities">
+          <EntitySetMapping Name="EstCivils">
+            <EntityTypeMapping TypeName="VeClientModel.EstCivil">
+              <MappingFragment StoreEntitySet="EstCivil">
+                <ScalarProperty Name="id_estado_civil" ColumnName="id_estado_civil" />
+                <ScalarProperty Name="estado_civil" ColumnName="estado_civil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SeVeClies">
+            <EntityTypeMapping TypeName="VeClientModel.SeVeClie">
+              <MappingFragment StoreEntitySet="SeVeClie">
+                <ScalarProperty Name="id_clie" ColumnName="id_clie" />
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="genero" ColumnName="genero" />
+                <ScalarProperty Name="fecha_nac" ColumnName="fecha_nac" />
+                <ScalarProperty Name="id_estado_civil" ColumnName="id_estado_civil" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+                <ScalarProperty Name="deleted_at" ColumnName="deleted_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="VeClientModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+                <ScalarProperty Name="deleted_at" ColumnName="deleted_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_UpdateSeVeClieById" FunctionName="VeClientModel.Store.sp_UpdateSeVeClieById" />
+          <FunctionImportMapping FunctionImportName="sp_GetAllSeVeClie" FunctionName="VeClientModel.Store.sp_GetAllSeVeClie">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="VeClientModel.sp_GetAllSeVeClie_Result">
+                <ScalarProperty Name="id_clie" ColumnName="id_clie" />
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="genero" ColumnName="genero" />
+                <ScalarProperty Name="fecha_nac" ColumnName="fecha_nac" />
+                <ScalarProperty Name="estado_civil" ColumnName="estado_civil" />
+                <ScalarProperty Name="total_rec" ColumnName="total_rec" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetSeVeClieById" FunctionName="VeClientModel.Store.sp_GetSeVeClieById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="VeClientModel.sp_GetSeVeClieById_Result">
+                <ScalarProperty Name="id_clie" ColumnName="id_clie" />
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="genero" ColumnName="genero" />
+                <ScalarProperty Name="fecha_nac" ColumnName="fecha_nac" />
+                <ScalarProperty Name="id_estado_civil" ColumnName="id_estado_civil" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
