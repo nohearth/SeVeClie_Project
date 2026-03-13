@@ -146,7 +146,11 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
+<<<<<<< HEAD
 -- Author:		
+=======
+-- Author:		Simon
+>>>>>>> 22f48c5eecf36bcbb73852591ce14a40871e8ef6
 -- Create date: 3/11/2026
 -- Description:	Obtener la información de todos los clientes, aplicando filtros y paginado
 -- =============================================
@@ -212,7 +216,11 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
+<<<<<<< HEAD
 -- Author:		
+=======
+-- Author:		Simon
+>>>>>>> 22f48c5eecf36bcbb73852591ce14a40871e8ef6
 -- Create date: 3/12/2026
 -- Description:	Obtener la información de todos los clientes para el reporte
 -- =============================================
@@ -244,7 +252,11 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
+<<<<<<< HEAD
 -- Author:		
+=======
+-- Author:		Simon
+>>>>>>> 22f48c5eecf36bcbb73852591ce14a40871e8ef6
 -- Create date: 3/11/2026
 -- Description:	Obtener la información de un cliente dado su id
 -- =============================================
@@ -270,7 +282,11 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
+<<<<<<< HEAD
 -- Author:		
+=======
+-- Author:		Simon
+>>>>>>> 22f48c5eecf36bcbb73852591ce14a40871e8ef6
 -- Create date: 3/11/2026
 -- Description:	Actualizar la información de un cliente dado su id
 -- =============================================
