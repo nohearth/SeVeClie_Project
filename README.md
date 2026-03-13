@@ -26,6 +26,8 @@
 Se debe cambiar/agregar la cadena de conexión correspondiente debido al uso mixto de Entity Framework y APO.NET para reportes:
 
 ## Ejemplos:
+
+```xml
 <connectionStrings>
   <add name="VeClientEntities" connectionString="metadata=res://...;provider connection string='...'" />
   
